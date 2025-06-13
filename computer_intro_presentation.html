@@ -1,0 +1,972 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Introduction to Computers & Digital World</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            overflow: hidden;
+        }
+
+        .presentation-container {
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .slide {
+            width: 90%;
+            max-width: 1000px;
+            height: 90%;
+            max-height: 700px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            display: none;
+            padding: 60px;
+            overflow-y: auto;
+            position: relative;
+        }
+
+        .slide.active {
+            display: block;
+            animation: slideIn 0.5s ease-in-out;
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateX(50px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        .slide-header {
+            text-align: center;
+            margin-bottom: 40px;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 20px;
+        }
+
+        .slide-title {
+            font-size: 2.5em;
+            color: #2c3e50;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .slide-subtitle {
+            font-size: 1.2em;
+            color: #7f8c8d;
+            font-weight: 400;
+        }
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin: 30px 0;
+        }
+
+        .content-card {
+            background: linear-gradient(145deg, #f8f9fa, #e9ecef);
+            padding: 25px;
+            border-radius: 12px;
+            border-left: 5px solid #667eea;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .content-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card-title {
+            font-size: 1.4em;
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .card-content {
+            color: #34495e;
+            line-height: 1.6;
+        }
+
+        .timeline {
+            position: relative;
+            margin: 30px 0;
+        }
+
+        .timeline-item {
+            display: flex;
+            margin-bottom: 30px;
+            align-items: center;
+        }
+
+        .timeline-year {
+            background: #667eea;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 20px;
+            font-weight: bold;
+            min-width: 100px;
+            text-align: center;
+            margin-right: 30px;
+        }
+
+        .timeline-content {
+            flex: 1;
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 4px solid #667eea;
+        }
+
+        .computer-types {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .computer-type {
+            text-align: center;
+            padding: 30px 20px;
+            background: linear-gradient(145deg, #ffffff, #f1f3f4);
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+
+        .computer-type:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+        }
+
+        .computer-icon {
+            font-size: 3em;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .components-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 25px;
+            margin: 30px 0;
+        }
+
+        .component {
+            background: linear-gradient(145deg, #667eea, #764ba2);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
+        }
+
+        .component-icon {
+            font-size: 3em;
+            margin-bottom: 15px;
+        }
+
+        .future-tech {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: space-around;
+            margin: 30px 0;
+        }
+
+        .tech-item {
+            background: linear-gradient(145deg, #ff6b6b, #ee5a24);
+            color: white;
+            padding: 25px;
+            border-radius: 12px;
+            text-align: center;
+            flex: 1;
+            min-width: 150px;
+            box-shadow: 0 8px 20px rgba(255, 107, 107, 0.3);
+        }
+
+        .navigation {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 15px;
+            z-index: 1000;
+        }
+
+        .nav-btn {
+            background: rgba(255,255,255,0.9);
+            border: none;
+            padding: 12px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: bold;
+            color: #2c3e50;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+        }
+
+        .nav-btn:hover {
+            background: white;
+            transform: translateY(-2px);
+        }
+
+        .nav-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .slide-counter {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            background: rgba(102, 126, 234, 0.1);
+            padding: 10px 20px;
+            border-radius: 20px;
+            color: #667eea;
+            font-weight: bold;
+        }
+
+        .list-item {
+            background: #f8f9fa;
+            margin: 10px 0;
+            padding: 15px 20px;
+            border-radius: 8px;
+            border-left: 4px solid #667eea;
+            display: flex;
+            align-items: center;
+        }
+
+        .list-icon {
+            margin-right: 15px;
+            font-size: 1.2em;
+            color: #667eea;
+        }
+
+        .center-content {
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            height: 100%;
+        }
+
+        .main-title {
+            font-size: 3.5em;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 20px;
+            font-weight: 800;
+        }
+
+        .subtitle {
+            font-size: 1.5em;
+            color: #7f8c8d;
+            margin-bottom: 40px;
+        }
+
+        .author-info {
+            background: rgba(102, 126, 234, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            color: #2c3e50;
+        }
+    </style>
+</head>
+<body>
+    <div class="presentation-container">
+        
+        <!-- Slide 1: Title -->
+        <div class="slide active">
+            <div class="slide-counter">1/15</div>
+            <div class="center-content">
+                <h1 class="main-title">Introduction to Computers & Digital World</h1>
+                <h2 class="subtitle">Basic of Computer</h2>
+                <div class="author-info">
+                    <h3>📚 Course Information</h3>
+                    <p>วันที่: 8 มิถุนายน 2568</p>
+                    <p>หลักสูตร: พื้นฐานคอมพิวเตอร์</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 2: Course Outline -->
+        <div class="slide">
+            <div class="slide-counter">2/15</div>
+            <div class="slide-header">
+                <h1 class="slide-title">📋 เนื้อหาที่จะเรียนรู้วันนี้</h1>
+            </div>
+            <div class="content-grid">
+                <div class="list-item">
+                    <span class="list-icon">🕰️</span>
+                    <span>วิวัฒนาการของคอมพิวเตอร์และผลกระทบต่อสังคม</span>
+                </div>
+                <div class="list-item">
+                    <span class="list-icon">💻</span>
+                    <span>ประเภทของคอมพิวเตอร์ทั้ง 5 ประเภท</span>
+                </div>
+                <div class="list-item">
+                    <span class="list-icon">🔧</span>
+                    <span>องค์ประกอบหลักของคอมพิวเตอร์</span>
+                </div>
+                <div class="list-item">
+                    <span class="list-icon">🌐</span>
+                    <span>เทคโนโลยีดิจิทัลในชีวิตประจำวันและอนาคต</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 3: Computer Evolution Timeline -->
+        <div class="slide">
+            <div class="slide-counter">3/15</div>
+            <div class="slide-header">
+                <h1 class="slide-title">🕰️ วิวัฒนาการของคอมพิวเตอร์</h1>
+            </div>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-year">1940s</div>
+                    <div class="timeline-content">
+                        <strong>คอมพิวเตอร์รุ่นแรก</strong><br>
+                        ENIAC - คอมพิวเตอร์อิเล็กทรอนิกส์เครื่องแรก
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-year">1950s-60s</div>
+                    <div class="timeline-content">
+                        <strong>ยุค Transistor</strong><br>
+                        เทคโนโลยีทรานซิสเตอร์ทำให้คอมพิวเตอร์เล็กลง
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-year">1970s</div>
+                    <div class="timeline-content">
+                        <strong>Microprocessor</strong><br>
+                        การประดิษฐ์ไมโครโปรเซสเซอร์
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-year">1980s</div>
+                    <div class="timeline-content">
+                        <strong>Personal Computer</strong><br>
+                        คอมพิวเตอร์ส่วนบุคคลเริ่มแพร่หลาย
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-year">1990s</div>
+                    <div class="timeline-content">
+                        <strong>Internet Era</strong><br>
+                        การเชื่อมต่ออินเทอร์เน็ตเปลี่ยนโลก
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-year">2000s</div>
+                    <div class="timeline-content">
+                        <strong>Mobile Computing</strong><br>
+                        สมาร์ทโฟนและแท็บเล็ตเข้ามามีบทบาท
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-year">2010s-ปัจจุบัน</div>
+                    <div class="timeline-content">
+                        <strong>AI & Cloud Computing</strong><br>
+                        ปัญญาประดิษฐ์และคลาวด์คอมพิวติ้ง
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 4: Social Impact -->
+        <div class="slide">
+            <div class="slide-counter">4/15</div>
+            <div class="slide-header">
+                <h1 class="slide-title">🌍 ผลกระทบต่อสังคม</h1>
+            </div>
+            <div class="content-grid">
+                <div class="content-card">
+                    <div class="card-title">💼 การทำงาน</div>
+                    <div class="card-content">
+                        เปลี่ยนรูปแบบการทำงาน เกิด Remote Work, Automation, และ Digital Workplace
+                    </div>
+                </div>
+                <div class="content-card">
+                    <div class="card-title">📱 การสื่อสาร</div>
+                    <div class="card-content">
+                        การเชื่อมต่อทั่วโลกผ่าน Social Media, Video Call, และ Instant Messaging
+                    </div>
+                </div>
+                <div class="content-card">
+                    <div class="card-title">📚 การศึกษา</div>
+                    <div class="card-content">
+                        E-learning, Online Courses, และการเข้าถึงความรู้ที่ไม่จำกัด
+                    </div>
+                </div>
+                <div class="content-card">
+                    <div class="card-title">💰 เศรษฐกิจ</div>
+                    <div class="card-content">
+                        E-commerce, Digital Payment, Cryptocurrency, และ Digital Economy
+                    </div>
+                </div>
+                <div class="content-card">
+                    <div class="card-title">🎮 บันเทิง</div>
+                    <div class="card-content">
+                        Streaming Services, Online Gaming, Virtual Reality, และ Digital Content
+                    </div>
+                </div>
+                <div class="content-card">
+                    <div class="card-title">🏥 การแพทย์</div>
+                    <div class="card-content">
+                        Telemedicine, AI Diagnosis, Electronic Health Records, และ Medical Devices
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 5: Computer Types Overview -->
+        <div class="slide">
+            <div class="slide-counter">5/15</div>
+            <div class="slide-header">
+                <h1 class="slide-title">💻 ประเภทของคอมพิวเตอร์</h1>
+            </div>
+            <div class="computer-types">
+                <div class="computer-type">
+                    <span class="computer-icon">🚀</span>
+                    <h3>Supercomputer</h3>
+                    <p>ความเร็วสูงสุด</p>
+                </div>
+                <div class="computer-type">
+                    <span class="computer-icon">🏢</span>
+                    <h3>Mainframe</h3>
+                    <p>ระบบขนาดใหญ่</p>
+                </div>
+                <div class="computer-type">
+                    <span class="computer-icon">🖥️</span>
+                    <h3>Minicomputer</h3>
+                    <p>ขนาดกลาง</p>
+                </div>
+                <div class="computer-type">
+                    <span class="computer-icon">💻</span>
+                    <h3>Personal Computer</h3>
+                    <p>ใช้งานส่วนบุคคล</p>
+                </div>
+                <div class="computer-type">
+                    <span class="computer-icon">📱</span>
+                    <h3>Mobile Devices</h3>
+                    <p>พกพาได้</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 6: Supercomputer -->
+        <div class="slide">
+            <div class="slide-counter">6/15</div>
+            <div class="slide-header">
+                <h1 class="slide-title">🚀 Supercomputer</h1>
+            </div>
+            <div class="content-grid">
+                <div class="content-card">
+                    <div class="card-title">⚡ คุณสมบัติ</div>
+                    <div class="card-content">
+                        <ul style="margin-left: 20px; line-height: 1.8;">
+                            <li>ความเร็วในการประมวลผลสูงมาก</li>
+                            <li>ราคาแพงมาก หลายล้านเหรียญสหรัฐ</li>
+                            <li>ใช้พลังงานมากและต้องการระบบระบายความร้อน</li>
+                            <li>ขนาดใหญ่มาก เท่ากับห้องหรืออาคาร</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="content-card">
+                    <div class="card-title">🔬 การใช้งาน</div>
+                    <div class="card-content">
+                        <ul style="margin-left: 20px; line-height: 1.8;">
+                            <li>การวิจัยทางวิทยาศาสตร์</li>
+                            <li>การพยากรณ์อากาศ</li>
+                            <li>การจำลองสถานการณ์ซับซ้อน</li>
+                            <li>การวิจัยด้านการแพทย์และยา</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="content-card" style="grid-column: 1/-1;">
+                    <div class="card-title">🏆 ตัวอย่าง</div>
+                    <div class="card-content">
+                        <strong>Fugaku (Japan):</strong> เครื่องที่เร็วที่สุดในโลก<br>
+                        <strong>IBM Summit (USA):</strong> ใช้ในการวิจัย AI และการแพทย์<br>
+                        <strong>Sierra (USA):</strong> ใช้ในการจำลองนิวเคลียร์
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 7: Mainframe & Minicomputer -->
+        <div class="slide">
+            <div class="slide-counter">7/15</div>
+            <div class="slide-header">
+                <h1 class="slide-title">🏢 Mainframe & Minicomputer</h1>
+            </div>
+            <div class="components-grid">
+                <div class="component" style="background: linear-gradient(145deg, #2c3e50, #34495e);">
+                    <div class="component-icon">🏢</div>
+                    <h3>Mainframe</h3>
+                    <ul style="text-align: left; margin-top: 15px; line-height: 1.6;">
+                        <li>รองรับผู้ใช้หลายพันคน</li>
+                        <li>ประมวลผลข้อมูลจำนวนมหาศาล</li>
+                        <li>ความน่าเชื่อถือสูง</li>
+                        <li>ใช้ในธนาคาร สายการบิน</li>
+                        <li>IBM z Series</li>
+                    </ul>
+                </div>
+                <div class="component" style="background: linear-gradient(145deg, #27ae60, #2ecc71);">
+                    <div class="component-icon">🖥️</div>
+                    <h3>Minicomputer</h3>
+                    <ul style="text-align: left; margin-top: 15px; line-height: 1.6;">
+                        <li>ขนาดกลางระหว่าง Mainframe และ PC</li>
+                        <li>ราคาปานกลาง</li>
+                        <li>รองรับผู้ใช้ 10-100 คน</li>
+                        <li>ใช้ในบริษัทขนาดกลาง</li>
+                        <li>ปัจจุบันถูกแทนที่ด้วย Server</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 8: Personal Computer & Mobile -->
+        <div class="slide">
+            <div class="slide-counter">8/15</div>
+            <div class="slide-header">
+                <h1 class="slide-title">💻📱 PC & Mobile Devices</h1>
+            </div>
+            <div class="components-grid">
+                <div class="component" style="background: linear-gradient(145deg, #3498db, #2980b9);">
+                    <div class="component-icon">💻</div>
+                    <h3>Personal Computer</h3>
+                    <ul style="text-align: left; margin-top: 15px; line-height: 1.6;">
+                        <li><strong>Desktop:</strong> ตั้งโต๊ะ ราคาถูก</li>
+                        <li><strong>Laptop:</strong> พกพาได้</li>
+                        <li><strong>All-in-One:</strong> จอและเครื่องรวมกัน</li>
+                        <li>ใช้งานส่วนบุคคล</li>
+                        <li>Windows, macOS, Linux</li>
+                    </ul>
+                </div>
+                <div class="component" style="background: linear-gradient(145deg, #e74c3c, #c0392b);">
+                    <div class="component-icon">📱</div>
+                    <h3>Mobile Devices</h3>
+                    <ul style="text-align: left; margin-top: 15px; line-height: 1.6;">
+                        <li><strong>Smartphone:</strong> โทรศัพท์อัจฉริยะ</li>
+                        <li><strong>Tablet:</strong> แท็บเล็ต</li>
+                        <li><strong>Smartwatch:</strong> นาฬิกาอัจฉริยะ</li>
+                        <li>เชื่อมต่ออินเทอร์เน็ตตลอดเวลา</li>
+                        <li>Android, iOS</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 9: Computer Components -->
+        <div class="slide">
+            <div class="slide-counter">9/15</div>
+            <div class="slide-header">
+                <h1 class="slide-title">🔧 องค์ประกอบหลักของคอมพิวเตอร์</h1>
+            </div>
+            <div class="components-grid">
+                <div class="component">
+                    <div class="component-icon">⚙️</div>
+                    <h3>Hardware</h3>
+                    <p>ฮาร์ดแวร์</p>
+                </div>
+                <div class="component">
+                    <div class="component-icon">💿</div>
+                    <h3>Software</h3>
+                    <p>ซอฟต์แวร์</p>
+                </div>
+                <div class="component">
+                    <div class="component-icon">👥</div>
+                    <h3>Peopleware</h3>
+                    <p>บุคลากร</p>
+                </div>
+                <div class="component">
+                    <div class="component-icon">📊</div>
+                    <h3>Data</h3>
+                    <p>ข้อมูล</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 10: Hardware -->
+        <div class="slide">
+            <div class="slide-counter">10/15</div>
+            <div class="slide-header">
+                <h1 class="slide-title">⚙️ ฮาร์ดแวร์ (Hardware)</h1>
+            </div>
+            <div class="content-grid">
+                <div class="content-card">
+                    <div class="card-title">📥 Input Devices</div>
+                    <div class="card-content">
+                        <ul style="margin-left: 20px;">
+                            <li>Keyboard (คีย์บอร์ด)</li>
+                            <li>Mouse (เมาส์)</li>
+                            <li>Touchscreen (หน้าจอสัมผัส)</li>
+                            <li>Microphone (ไมโครโฟน)</li>
+                            <li>Camera (กล้อง)</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="content-card">
+                    <div class="card-title">🧠 Processing Unit</div>
+                    <div class="card-content">
+                        <ul style="margin-left: 20px;">
+                            <li>CPU (Central Processing Unit)</li>
+                            <li>GPU (Graphics Processing Unit)</li>
+                            <li>Motherboard (เมนบอร์ด)</li>
+                            <li>Chipset</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="content-card">
+                    <div class="card-title">💾 Memory & Storage</div>
+                    <div class="card-content">
+                        <ul style="margin-left: 20px;">
+                            <li>RAM (Random Access Memory)</li>
+                            <li>Hard Disk Drive (HDD)</li>
+                            <li>Solid State Drive (SSD)</li>
+                            <li>Optical Disk (CD/DVD/Blu-ray)</li>
+                            <li>Flash Drive (USB)</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="content-card">
+                    <div class="card-title">📤 Output Devices</div>
+                    <div class="card-content">
+                        <ul style="margin-left: 20px;">
+                            <li>Monitor (จอภาพ)</li>
+                            <li>Printer (เครื่องพิมพ์)</li>
+                            <li>Speaker (ลำโพง)</li>
+                            <li>Headphone (หูฟัง)</li>
+                            <li>Projector (โปรเจ็กเตอร์)</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 11: Software -->
+        <div class="slide">
+            <div class="slide-counter">11/15</div>
+            <div class="slide-header">
+                <h1 class="slide-title">💿 ซอฟต์แวร์ (Software)</h1>
+            </div>
+            <div class="content-grid">
+                <div class="content-card">
+                    <div class="card-title">🖥️ System Software</div>
+                    <div class="card-content">
+                        <strong>Operating System (OS):</strong>
+                        <ul style="margin-left: 20px; margin-top: 10px;">
+                            <li>Windows 11</li>
+                            <li>macOS</li>
+                            <li>Linux (Ubuntu, CentOS)</li>
+                            <li>Android</li>
+                            <li>iOS</li>
+                        </ul>
+                        <strong>Device Drivers:</strong> โปรแกรมควบคุมอุปกรณ์
+                    </div>
+                </div>
+                <div class="content-card">
+                    <div class="card-title">📱 Application Software</div>
+                    <div class="card-content">
+                        <strong>Office Suite:</strong>
+                        <ul style="margin-left: 20px; margin-top: 10px;">
+                            <li>Microsoft Office (Word, Excel, PowerPoint)</li>
+                            <li>Google Workspace</li>
+                            <li>LibreOffice</li>
+                        </ul>
+                        <strong>อื่นๆ:</strong> Adobe Creative Suite, Games, Web Browsers
+                    </div>
+                </div>
+                <div class="content-card">
+                    <div class="card-title">⚙️ Utility Software</div>
+                    <div class="card-content">
+                        <ul style="margin-left: 20px;">
+                            <li>Antivirus Software</li>
+                            <li>File Compression (WinRAR, 7-Zip)</li>
+                            <li>Disk Cleanup Tools</li>
+                            <li>System Monitoring</li>
+                            <li>Backup Software</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="content-card">
+                    <div class="card-title">👨‍💻 Programming Software</div>
+                    <div class="card-content">
+                        <ul style="margin-left: 20px;">
+                            <li>Text Editors (VS Code, Sublime)</li>
+                            <li>IDEs (Visual Studio, Eclipse)</li>
+                            <li>Compilers & Interpreters</li>
+                            <li>Version Control (Git)</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 12: Peopleware & Data -->
+        <div class="slide">
+            <div class="slide-counter">12/15</div>
+            <div class="slide-header">
+                <h1 class="slide-title">👥📊 Peopleware & Data</h1>
+            </div>
+            <div class="components-grid">
+                <div class="component" style="background: linear-gradient(145deg, #f39c12, #e67e22);">
+                    <div class="component-icon">👥</div>
+                    <h3>Peopleware</h3>
+                    <ul style="text-align: left; margin-top: 15px; line-height: 1.6;">
+                        <li><strong>End Users:</strong> ผู้ใช้งานทั่วไป</li>
+                        <li><strong>System Analysts:</strong> นักวิเคราะห์ระบบ</li>
+                        <li><strong>Programmers:</strong> โปรแกรมเมอร์</li>
+                        <li><strong>Database Admin:</strong> ผู้ดูแลฐานข้อมูล</li>
+                        <li><strong>Network Admin:</strong> ผู้ดูแลเครือข่าย</li>
+                    </ul>
+                </div>
+                <div class="component" style="background: linear-gradient(145deg, #9b59b6, #8e44ad);">
+                    <div class="component-icon">📊</div>
+                    <h3>Data</h3>
+                    <ul style="text-align: left; margin-top: 15px; line-height: 1.6;">
+                        <li><strong>Raw Data:</strong> ข้อมูลดิบ</li>
+                        <li><strong>Information:</strong> สารสนเทศ</li>
+                        <li><strong>Knowledge:</strong> ความรู้</li>
+                        <li><strong>Wisdom:</strong> ปัญญา</li>
+                        <li><strong>Big Data:</strong> ข้อมูลขนาดใหญ่</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 13: Digital Technology Today -->
+        <div class="slide">
+            <div class="slide-counter">13/15</div>
+            <div class="slide-header">
+                <h1 class="slide-title">🌐 เทคโนโลยีดิจิทัลในชีวิตประจำวัน</h1>
+            </div>
+            <div class="content-grid">
+                <div class="content-card">
+                    <div class="card-title">💬 การสื่อสาร</div>
+                    <div class="card-content">
+                        <ul style="margin-left: 20px;">
+                            <li>Social Media (Facebook, Instagram, TikTok)</li>
+                            <li>Video Conferencing (Zoom, Teams, Meet)</li>
+                            <li>Instant Messaging (LINE, WhatsApp)</li>
+                            <li>Email & Cloud Collaboration</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="content-card">
+                    <div class="card-title">📚 การเรียนรู้</div>
+                    <div class="card-content">
+                        <ul style="margin-left: 20px;">
+                            <li>E-learning Platforms (Coursera, Udemy)</li>
+                            <li>Online Universities & MOOCs</li>
+                            <li>Educational Apps</li>
+                            <li>Virtual Classrooms</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="content-card">
+                    <div class="card-title">💼 การทำงาน</div>
+                    <div class="card-content">
+                        <ul style="margin-left: 20px;">
+                            <li>Remote Work & Digital Nomads</li>
+                            <li>Cloud Computing (Google Drive, OneDrive)</li>
+                            <li>Project Management Tools</li>
+                            <li>Automation & AI Tools</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="content-card">
+                    <div class="card-title">🎮 บันเทิง</div>
+                    <div class="card-content">
+                        <ul style="margin-left: 20px;">
+                            <li>Streaming Services (Netflix, YouTube)</li>
+                            <li>Online Gaming & Esports</li>
+                            <li>Digital Music (Spotify, Apple Music)</li>
+                            <li>Virtual Reality Gaming</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="content-card">
+                    <div class="card-title">🛒 การซื้อขาย</div>
+                    <div class="card-content">
+                        <ul style="margin-left: 20px;">
+                            <li>E-commerce (Shopee, Lazada, Amazon)</li>
+                            <li>Digital Payment (QR Code, Mobile Banking)</li>
+                            <li>Cryptocurrency & Digital Wallets</li>
+                            <li>Food Delivery Apps</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="content-card">
+                    <div class="card-title">🏥 การดูแลสุขภาพ</div>
+                    <div class="card-content">
+                        <ul style="margin-left: 20px;">
+                            <li>Telemedicine & Online Consultation</li>
+                            <li>Health Monitoring Apps</li>
+                            <li>Fitness Trackers & Smartwatches</li>
+                            <li>Medical AI & Diagnosis</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 14: Future Trends -->
+        <div class="slide">
+            <div class="slide-counter">14/15</div>
+            <div class="slide-header">
+                <h1 class="slide-title">🚀 อนาคตของเทคโนโลยีดิจิทัล</h1>
+            </div>
+            <div class="future-tech">
+                <div class="tech-item">
+                    <h3>🤖 AI</h3>
+                    <p>Artificial Intelligence</p>
+                    <small>ChatGPT, Machine Learning, Deep Learning</small>
+                </div>
+                <div class="tech-item">
+                    <h3>🌐 IoT</h3>
+                    <p>Internet of Things</p>
+                    <small>Smart Home, Connected Devices</small>
+                </div>
+                <div class="tech-item">
+                    <h3>🥽 VR/AR</h3>
+                    <p>Virtual & Augmented Reality</p>
+                    <small>Metaverse, Mixed Reality</small>
+                </div>
+                <div class="tech-item">
+                    <h3>⛓️ Blockchain</h3>
+                    <p>Distributed Ledger</p>
+                    <small>Cryptocurrency, Smart Contracts</small>
+                </div>
+                <div class="tech-item">
+                    <h3>⚛️ Quantum</h3>
+                    <p>Quantum Computing</p>
+                    <small>Superposition, Quantum Supremacy</small>
+                </div>
+                <div class="tech-item">
+                    <h3>🌱 Green Tech</h3>
+                    <p>Sustainable Technology</p>
+                    <small>Renewable Energy, Efficient Computing</small>
+                </div>
+            </div>
+            <div style="margin-top: 30px; padding: 20px; background: rgba(255,255,255,0.1); border-radius: 10px; text-align: center;">
+                <h3 style="color: #2c3e50; margin-bottom: 15px;">🔮 ผลกระทบในอนาคต</h3>
+                <p style="color: #34495e; line-height: 1.6;">
+                    เทคโนโลยีเหล่านี้จะเปลี่ยนแปลงวิธีการทำงาน การเรียนรู้ การสื่อสาร และการใช้ชีวิตของเราอย่างสิ้นเชิง 
+                    ทำให้เกิดโอกาสใหม่ๆ แต่ก็มีความท้าทายด้านความปลอดภัย ความเป็นส่วนตัว และการปรับตัวของสังคม
+                </p>
+            </div>
+        </div>
+
+        <!-- Slide 15: Summary & Q&A -->
+        <div class="slide">
+            <div class="slide-counter">15/15</div>
+            <div class="slide-header">
+                <h1 class="slide-title">📝 สรุป</h1>
+            </div>
+            <div class="content-grid">
+                <div class="list-item">
+                    <span class="list-icon">✅</span>
+                    <span><strong>วิวัฒนาการ:</strong> คอมพิวเตอร์พัฒนาจากห้องใหญ่สู่อุปกรณ์พกพา</span>
+                </div>
+                <div class="list-item">
+                    <span class="list-icon">✅</span>
+                    <span><strong>ประเภท:</strong> 5 ประเภทหลัก ตั้งแต่ Supercomputer ถึง Mobile Devices</span>
+                </div>
+                <div class="list-item">
+                    <span class="list-icon">✅</span>
+                    <span><strong>องค์ประกอบ:</strong> Hardware, Software, Peopleware, และ Data</span>
+                </div>
+                <div class="list-item">
+                    <span class="list-icon">✅</span>
+                    <span><strong>ดิจิทัล:</strong> เปลี่ยนทุกด้านของชีวิต จากการทำงานถึงบันเทิง</span>
+                </div>
+            </div>
+            
+            <div style="margin-top: 40px; text-align: center; padding: 30px; background: linear-gradient(145deg, #667eea, #764ba2); border-radius: 15px; color: white;">
+                <h2 style="margin-bottom: 20px;">🙋‍♂️ Questions & Answers</h2>
+                <p style="font-size: 1.2em; margin-bottom: 15px;">มีคำถามเกี่ยวกับเนื้อหาหรือไม่?</p>
+                <p style="opacity: 0.9;">พร้อมตอบทุกข้อสงสัยเกี่ยวกับคอมพิวเตอร์และเทคโนโลยีดิจิทัล</p>
+            </div>
+            
+            <div style="margin-top: 30px; text-align: center; color: #7f8c8d;">
+                <p>ขอบคุณที่ให้ความสนใจ! 🎉</p>
+                <p style="font-size: 0.9em; margin-top: 10px;">
+                    📧 ติดต่อสอบถาม | 🌐 เอกสารเพิ่มเติม | 📚 แหล่งเรียนรู้
+                </p>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Navigation -->
+    <div class="navigation">
+        <button class="nav-btn" id="prevBtn" onclick="changeSlide(-1)">◀ ก่อนหน้า</button>
+        <button class="nav-btn" id="nextBtn" onclick="changeSlide(1)">ถัดไป ▶</button>
+    </div>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+
+        function showSlide(n) {
+            slides[currentSlide].classList.remove('active');
+            currentSlide = (n + totalSlides) % totalSlides;
+            slides[currentSlide].classList.add('active');
+            
+            // Update navigation buttons
+            document.getElementById('prevBtn').disabled = currentSlide === 0;
+            document.getElementById('nextBtn').disabled = currentSlide === totalSlides - 1;
+        }
+
+        function changeSlide(n) {
+            if (n === 1 && currentSlide < totalSlides - 1) {
+                showSlide(currentSlide + 1);
+            } else if (n === -1 && currentSlide > 0) {
+                showSlide(currentSlide - 1);
+            }
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'ArrowRight' || e.key === ' ') {
+                e.preventDefault();
+                if (currentSlide < totalSlides - 1) changeSlide(1);
+            } else if (e.key === 'ArrowLeft') {
+                e.preventDefault();
+                if (currentSlide > 0) changeSlide(-1);
+            }
+        });
+
+        // Initialize
+        showSlide(0);
+
+        // Auto-play option (uncomment if desired)
+        // setInterval(() => {
+        //     if (currentSlide < totalSlides - 1) {
+        //         changeSlide(1);
+        //     }
+        // }, 10000); // Change slide every 10 seconds
+    </script>
+</body>
+</html>
